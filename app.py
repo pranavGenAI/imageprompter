@@ -223,7 +223,7 @@ def generate_content(image, user_question):
     while retry_count < max_retries:
         try:
             model = genai.GenerativeModel('gemini-1.5-pro')
-            prompt = f"{user_question}"
+            prompt = f"""Answer user question as an intelligent AI with better formatting. User Question: {user_question}"""
             response = model.generate_content([prompt, image], stream=True)
             response.resolve()
             return response.text
