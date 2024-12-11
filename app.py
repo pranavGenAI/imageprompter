@@ -200,7 +200,7 @@ st.markdown(
 st.markdown(
     """
     <header tabindex="-1" data-testid="stHeader">
-        <div class="header-content">
+        <div class="stAppHeader st-emotion-cache-12fmjuu e10jh26i0">
             <img src="https://www.vgen.it/wp-content/uploads/2021/04/logo-accenture-ludo.png" class="logo" alt="Logo">
         </div>
     </header>
