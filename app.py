@@ -220,23 +220,30 @@ def generate_content(image, user_question):
     max_retries = 10
     delay = 10
     retry_count = 0
+
     while retry_count < max_retries:
         try:
             model = genai.GenerativeModel('gemini-1.5-pro')
             prompt = f"""
             You are an intelligent AI assistant. Please analyze the provided image and answer the user's question. 
-            Format your response in Markdown with clear headings and bullet points when appropriate.
+            Format your response in Markdown with clear headings, bullet points, and bold/italicized text as appropriate.
             User Question: {user_question}
             """
             response = model.generate_content([prompt, image], stream=True)
             response.resolve()
+
+            # No need to replace stars if you're rendering Markdown
             return response.text
-        except Exception:
+
+        except Exception as e:
+            st.error(f"Error occurred: {str(e)}")
             retry_count += 1
             if retry_count == max_retries:
-                st.error("Error generating content: Server not available. Please try again later.")
+                st.error("Max retries reached. Server might be unavailable.")
             time.sleep(delay)
+
     return None
+
 
 def main():
     col1, col2, col3 = st.columns([10, 1, 10])
