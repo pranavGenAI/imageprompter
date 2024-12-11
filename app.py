@@ -5,6 +5,7 @@ import time
 import hashlib
 import json
 from uuid import uuid4  # To generate unique IDs for each case
+
 st.set_page_config(page_title="Image Prompter", page_icon="🖼️", layout="wide")
 
 # Custom CSS for header and layout
@@ -44,20 +45,6 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# # Updated header with correct HTML structure
-# st.markdown(
-#     """
-#     <header tabindex="-1" data-testid="stHeader">
-#         <div style="display: flex; align-items: center; justify-content: space-between;">
-#             <img src="https://www.vgen.it/wp-content/uploads/2021/04/logo-accenture-ludo.png" class="logo" alt="Logo">
-#             <span style="color: white; font-size: 20px; font-weight: bold;">State Release Data Extraction</span>
-#         </div>
-#     </header>
-#     """,
-#     unsafe_allow_html=True
-# )
-# Set page title, icon, and dark theme
-
 # CSS for styling
 st.markdown(
     """
@@ -90,7 +77,6 @@ if "validated_queue" not in st.session_state:
     st.session_state.validated_queue = {}
 
 # Configure Google Generative AI with the API key
-# GOOGLE_API_KEY = st.secrets['GEMINI_API_KEY']
 GOOGLE_API_KEY = "AIzaSyCiPGxwD04JwxifewrYiqzufyd25VjKBkw"
 genai.configure(api_key=GOOGLE_API_KEY)
 
@@ -160,43 +146,41 @@ def add_to_queue(image, extracted_data):
 def main():
     st.title("State Release Data Extraction")
 
-    # Create tabs for Document Queue and Validated Queue
-    tab1, tab2 = st.tabs(["Document Queue", "Validated Queue"])
+    st.subheader("Upload Document")
+    uploaded_image = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png"])
+    st.write("Enter your prompt here")
+    user_question = st.text_input("", label_visibility="collapsed")
+    if uploaded_image:
+        image = PIL.Image.open(uploaded_image)
+        if st.button("Extract and Add to Queue"):
+            with st.spinner("Extracting data..."):
+                extracted_data = generate_content(image, user_question)
+                if extracted_data:
+                    st.image(uploaded_image, caption="Uploaded Image", use_column_width=True)
+                    st.text(extracted_data)
+                    add_to_queue(image, extracted_data)
+                else:
+                    st.error("Failed to extract data. Please try again.")
 
-    # Document Queue tab
-    with tab1:
-        st.subheader("Upload Document")
-        uploaded_image = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png"])
-        st.write("Enter your prompt here")
-        user_question = st.text_input("",  label_visibility="collapsed")
-        if uploaded_image:
-            image = PIL.Image.open(uploaded_image)
-            if st.button("Extract and Add to Queue"):
-                with st.spinner("Extracting data..."):
-                    extracted_data = generate_content(image,user_question)
-                    if extracted_data:
-                        st.image(uploaded_image, caption="Uploaded Image", use_column_width=True)
-                        st.text(extracted_data)
-                        add_to_queue(image, extracted_data)
-                    else:
-                        st.error("Failed to extract data. Please try again.")
-
-        st.subheader("Document Queue")
+    # Document Queue Section
+    st.subheader("Document Queue")
+    if st.session_state.document_queue:
         for doc_id, doc_info in st.session_state.document_queue.items():
             if st.button(f"View Document {doc_id}"):
                 st.image(doc_info["image"], caption=f"Document ID: {doc_id}", use_column_width=True)
                 st.text(doc_info["extracted_data"])
+    else:
+        st.write("No documents in the queue.")
 
-    # Validated Queue tab
-    with tab2:
-        st.subheader("Validated Documents")
-        if st.session_state.validated_queue:
-            for doc_id, doc_info in st.session_state.validated_queue.items():
-                if st.button(f"View Validated Document {doc_id}"):
-                    st.image(doc_info["image"], caption=f"Validated Document ID: {doc_id}", use_column_width=True)
-                    st.text(doc_info["extracted_data"])
-        else:
-            st.write("No validated documents available.")
+    # Validated Queue Section
+    st.subheader("Validated Documents")
+    if st.session_state.validated_queue:
+        for doc_id, doc_info in st.session_state.validated_queue.items():
+            if st.button(f"View Validated Document {doc_id}"):
+                st.image(doc_info["image"], caption=f"Validated Document ID: {doc_id}", use_column_width=True)
+                st.text(doc_info["extracted_data"])
+    else:
+        st.write("No validated documents available.")
 
 if __name__ == "__main__":
     if st.session_state.logged_in:
@@ -207,5 +191,3 @@ if __name__ == "__main__":
         main()
     else:
         login()
-
-
