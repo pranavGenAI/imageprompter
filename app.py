@@ -187,7 +187,7 @@ st.markdown("""
         }
     </style>
     <p class="animated-gradient-text">
-        Reddit Scraper Tool 🕷- Extract Posts and Comments!
+        GenAI Image Prompter Tool
     </p>
 """, unsafe_allow_html=True)
 # Initialize session state
@@ -257,54 +257,23 @@ def generate_content(image,user_question):
             time.sleep(delay)
     return None
 
-def add_to_queue(image, extracted_data):
-    # Generate a unique ID for each document
-    unique_id = str(uuid4())
-    # Add to document queue
-    st.session_state.document_queue[unique_id] = {
-        "image": image,
-        "extracted_data": extracted_data
-    }
-    st.success(f"Document added to queue with ID: {unique_id}")
-
 def main():
-    st.title("State Release Data Extraction")
-
-    st.subheader("Upload Document")
-    uploaded_image = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png"])
-    st.write("Enter your prompt here")
-    user_question = st.text_input("", label_visibility="collapsed")
-    if uploaded_image:
-        image = PIL.Image.open(uploaded_image)
-        if st.button("Extract and Add to Queue"):
-            with st.spinner("Extracting data..."):
-                extracted_data = generate_content(image, user_question)
-                if extracted_data:
-                    st.image(uploaded_image, caption="Uploaded Image", use_column_width=True)
-                    st.text(extracted_data)
-                    add_to_queue(image, extracted_data)
-                else:
-                    st.error("Failed to extract data. Please try again.")
-
-    # Document Queue Section
-    st.subheader("Document Queue")
-    if st.session_state.document_queue:
-        for doc_id, doc_info in st.session_state.document_queue.items():
-            if st.button(f"View Document {doc_id}"):
-                st.image(doc_info["image"], caption=f"Document ID: {doc_id}", use_column_width=True)
-                st.text(doc_info["extracted_data"])
-    else:
-        st.write("No documents in the queue.")
-
-    # Validated Queue Section
-    st.subheader("Validated Documents")
-    if st.session_state.validated_queue:
-        for doc_id, doc_info in st.session_state.validated_queue.items():
-            if st.button(f"View Validated Document {doc_id}"):
-                st.image(doc_info["image"], caption=f"Validated Document ID: {doc_id}", use_column_width=True)
-                st.text(doc_info["extracted_data"])
-    else:
-        st.write("No validated documents available.")
+    col1, col2, col3 = st.columns([10, 1.5, 10])
+    with col1:
+        uploaded_image = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png"])
+        st.write("Enter your prompt here")
+        user_question = st.text_input("", label_visibility="collapsed")
+    with col2:
+        if uploaded_image:
+            image = PIL.Image.open(uploaded_image)
+            if st.button("Submit"):
+                with st.spinner("Extracting data..."):
+                    extracted_data = generate_content(image, user_question)
+                    if extracted_data:
+                        st.image(uploaded_image, caption="Uploaded Image", use_column_width=True)
+                        st.text(extracted_data)
+                    else:
+                        st.error("Failed to extract data. Please try again.")
 
 if __name__ == "__main__":
     if st.session_state.logged_in:
