@@ -162,34 +162,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-st.markdown("""
-    <style>
-        @keyframes gradientAnimation {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
-        }
-
-        .animated-gradient-text {
-            font-family: "Graphik Semibold";
-            font-size: 80px;
-            background: linear-gradient(45deg, #22ebe8 30%, #dc14b7 55%, #fe647b 20%);
-            background-size: 300% 200%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: gradientAnimation 20s ease-in-out infinite;
-        }
-    </style>
-    <p class="animated-gradient-text">
-        GenAI Image Prompter Tool
-    </p>
-""", unsafe_allow_html=True)
+st.title("GenAI Image Prompter")
 # Initialize session state
 if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
