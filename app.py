@@ -80,14 +80,14 @@ def logout():
     st.rerun()
 
 # Function to generate content from the image using Generative AI
-def generate_content(image):
+def generate_content(image,user_question):
     max_retries = 10
     delay = 10
     retry_count = 0
     while retry_count < max_retries:
         try:
             model = genai.GenerativeModel('gemini-1.5-pro')
-            prompt = """extract all information in Marathi """
+            prompt = "{user_question}"
             response = model.generate_content([prompt, image], stream=True)
             response.resolve()
             return response.text
@@ -118,12 +118,13 @@ def main():
     with tab1:
         st.subheader("Upload Document")
         uploaded_image = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png"])
-
+        st.write("Enter your prompt here")
+        user_question = st.text_input("",  label_visibility="collapsed")
         if uploaded_image:
             image = PIL.Image.open(uploaded_image)
             if st.button("Extract and Add to Queue"):
                 with st.spinner("Extracting data..."):
-                    extracted_data = generate_content(image)
+                    extracted_data = generate_content(image,user_question)
                     if extracted_data:
                         st.image(uploaded_image, caption="Uploaded Image", use_column_width=True)
                         st.text(extracted_data)
