@@ -196,14 +196,16 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# Header with logo
+# Updated header with correct HTML structure
 st.markdown(
     """
     <header tabindex="-1" data-testid="stHeader">
-        <div class="stAppHeader st-emotion-cache-12fmjuu e10jh26i0">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
             <img src="https://www.vgen.it/wp-content/uploads/2021/04/logo-accenture-ludo.png" class="logo" alt="Logo">
+            <span style="color: white; font-size: 20px; font-weight: bold;">State Release Data Extraction</span>
         </div>
     </header>
     """,
     unsafe_allow_html=True
 )
+
