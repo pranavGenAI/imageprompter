@@ -178,7 +178,7 @@ st.markdown("""
 
         .animated-gradient-text {
             font-family: "Graphik Semibold";
-            font-size: 30px;
+            font-size: 80px;
             background: linear-gradient(45deg, #22ebe8 30%, #dc14b7 55%, #fe647b 20%);
             background-size: 300% 200%;
             -webkit-background-clip: text;
