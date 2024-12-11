@@ -159,6 +159,18 @@ st.markdown("""
     }
 </style>
 """, unsafe_allow_html=True)
+
+st.markdown(
+    """
+    <style>
+        .stAppHeader.st-emotion-cache-h4xjwg.e10jh26i0 {
+            display: none;
+        }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 # Configure Google Generative AI with the API key
 GOOGLE_API_KEY = "AIzaSyCNX1H0w4y7dJPlwqvrxiW1OjAMf4dkFp0"
 genai.configure(api_key=GOOGLE_API_KEY)
