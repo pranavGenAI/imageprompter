@@ -5,6 +5,7 @@ import time
 import hashlib
 import json
 from uuid import uuid4  # To generate unique IDs for each case
+st.set_page_config(page_title="Image Prompter", page_icon="🖼️", layout="wide")
 
 # Custom CSS for header and layout
 st.markdown(
@@ -43,20 +44,19 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# Updated header with correct HTML structure
-st.markdown(
-    """
-    <header tabindex="-1" data-testid="stHeader">
-        <div style="display: flex; align-items: center; justify-content: space-between;">
-            <img src="https://www.vgen.it/wp-content/uploads/2021/04/logo-accenture-ludo.png" class="logo" alt="Logo">
-            <span style="color: white; font-size: 20px; font-weight: bold;">State Release Data Extraction</span>
-        </div>
-    </header>
-    """,
-    unsafe_allow_html=True
-)
+# # Updated header with correct HTML structure
+# st.markdown(
+#     """
+#     <header tabindex="-1" data-testid="stHeader">
+#         <div style="display: flex; align-items: center; justify-content: space-between;">
+#             <img src="https://www.vgen.it/wp-content/uploads/2021/04/logo-accenture-ludo.png" class="logo" alt="Logo">
+#             <span style="color: white; font-size: 20px; font-weight: bold;">State Release Data Extraction</span>
+#         </div>
+#     </header>
+#     """,
+#     unsafe_allow_html=True
+# )
 # Set page title, icon, and dark theme
-st.set_page_config(page_title="Image Prompter", page_icon="🖼️", layout="wide")
 
 # CSS for styling
 st.markdown(
