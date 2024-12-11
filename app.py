@@ -3,13 +3,12 @@ import PIL.Image
 import google.generativeai as genai
 import time
 import hashlib
-from uuid import uuid4
 
 # Streamlit Configuration
-st.set_page_config(page_title="Image Prompter", page_icon="🖼️", layout="wide")
+st.set_page_config(page_title="Image Prompter", page_icon="🎨", layout="wide")
 
 # Configure Google Generative AI with the API key
-GOOGLE_API_KEY = "<YOUR_API_KEY_HERE>"
+GOOGLE_API_KEY = "AIzaSyCNX1H0w4y7dJPlwqvrxiW1OjAMf4dkFp0"
 genai.configure(api_key=GOOGLE_API_KEY)
 
 def hash_password(password):
@@ -77,21 +76,21 @@ def generate_content(image, user_question):
 
 def main():
     """Main Application Logic"""
-    col1, col2, col3 = st.columns([10, 1.5, 10])
+    col1, col2 = st.columns([1, 2])
 
     with col1:
         uploaded_image = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png"])
+        if uploaded_image:
+            st.image(uploaded_image, caption="Uploaded Image", use_container_width=True)
 
-    with col3:
+    with col2:
         st.write("Enter your prompt here")
         user_question = st.text_input("", label_visibility="collapsed")
         
         if uploaded_image and user_question:
-            image = PIL.Image.open(uploaded_image)
-            st.image(uploaded_image, caption="Uploaded Image", use_container_width=True)
-
             if st.button("Submit"):
                 with st.spinner("Extracting data..."):
+                    image = PIL.Image.open(uploaded_image)
                     extracted_data = generate_content(image, user_question)
                     if extracted_data:
                         st.markdown(extracted_data)  # Render the AI response in Markdown
