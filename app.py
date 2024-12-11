@@ -183,6 +183,7 @@ users = {
     "ankur.d.shrivastav": hash_password("ankur123"),
     "sashank.vaibhav.allu": hash_password("sashank123"),
     "shivananda.mallya": hash_password("shiv123"),
+    "m.venkata.kesava": hash_password("mahendra123"),
     "pranav.baviskar": hash_password("pranav123")
 }
 
