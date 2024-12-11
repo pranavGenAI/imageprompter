@@ -6,6 +6,55 @@ import hashlib
 import json
 from uuid import uuid4  # To generate unique IDs for each case
 
+# Custom CSS for header and layout
+st.markdown(
+    """
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Graphik:wght@400;700&display=swap');
+
+    body {
+        background-color: #f0f0f0;
+        color: black;
+        font-family: 'Graphik', sans-serif;
+    }
+    .stApp {
+        background-color: #f0f0f0;
+    }
+    header {
+        background-color: #660094 !important;
+        padding: 10px 40px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .logo {
+        height: 30px;
+        width: auto;
+    }
+    .generated-text-box {
+        border: 3px solid #A020F0;
+        padding: 20px;
+        border-radius: 10px;
+        background-color: #FFFFFF;
+        color: black;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+# Updated header with correct HTML structure
+st.markdown(
+    """
+    <header tabindex="-1" data-testid="stHeader">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <img src="https://www.vgen.it/wp-content/uploads/2021/04/logo-accenture-ludo.png" class="logo" alt="Logo">
+            <span style="color: white; font-size: 20px; font-weight: bold;">State Release Data Extraction</span>
+        </div>
+    </header>
+    """,
+    unsafe_allow_html=True
+)
 # Set page title, icon, and dark theme
 st.set_page_config(page_title="Image Prompter", page_icon="🖼️", layout="wide")
 
@@ -159,53 +208,4 @@ if __name__ == "__main__":
     else:
         login()
 
-# Custom CSS for header and layout
-st.markdown(
-    """
-    <style>
-    @import url('https://fonts.googleapis.com/css2?family=Graphik:wght@400;700&display=swap');
-
-    body {
-        background-color: #f0f0f0;
-        color: black;
-        font-family: 'Graphik', sans-serif;
-    }
-    .stApp {
-        background-color: #f0f0f0;
-    }
-    header {
-        background-color: #660094 !important;
-        padding: 10px 40px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-    .logo {
-        height: 30px;
-        width: auto;
-    }
-    .generated-text-box {
-        border: 3px solid #A020F0;
-        padding: 20px;
-        border-radius: 10px;
-        background-color: #FFFFFF;
-        color: black;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
-
-# Updated header with correct HTML structure
-st.markdown(
-    """
-    <header tabindex="-1" data-testid="stHeader">
-        <div style="display: flex; align-items: center; justify-content: space-between;">
-            <img src="https://www.vgen.it/wp-content/uploads/2021/04/logo-accenture-ludo.png" class="logo" alt="Logo">
-            <span style="color: white; font-size: 20px; font-weight: bold;">State Release Data Extraction</span>
-        </div>
-    </header>
-    """,
-    unsafe_allow_html=True
-)
 
