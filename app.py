@@ -172,7 +172,7 @@ st.markdown(
 
 st.title("GenAI Image Prompter")
 # Configure Google Generative AI with the API key
-GOOGLE_API_KEY = "AIzaSyCNX1H0w4y7dJPlwqvrxiW1OjAMf4dkFp0"
+GOOGLE_API_KEY = "AIzaSyCAh0Ed38QtD8KwE_-hhRgn_n-IIntdTI0"
 genai.configure(api_key=GOOGLE_API_KEY)
 
 def hash_password(password):
