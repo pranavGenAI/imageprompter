@@ -184,7 +184,8 @@ users = {
     "sashank.vaibhav.allu": hash_password("sashank123"),
     "shivananda.mallya": hash_password("shiv123"),
     "m.venkata.kesava": hash_password("mahendra123"),
-    "pranav.baviskar": hash_password("pranav123")
+    "pranav.baviskar": hash_password("pranav123"),
+    "nehal.s": hash_password("nehal123")
 }
 
 def login():
